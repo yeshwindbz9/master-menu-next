@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Master Menu Next (Next.js + GSAP Responsive Navigation)
+
+A lightweight demo project showcasing a **GSAP-driven, responsive full-screen navigation overlay** built with the **Next.js App Router**.  
+The menu uses **clip-path** animation for the overlay reveal and staggered link entrance animation via **GSAP timelines**.
+
+## Tech Stack
+
+- **Next.js (App Router)**
+- **React**
+- **GSAP + @gsap/react**
+- **CSS (global + component styles)**
+- **next/font** (Google fonts via Next.js)
+
+## Features
+
+- Fixed top **menu bar**
+- Full-screen **overlay menu**
+- GSAP timeline:
+  - overlay reveal using `clip-path`
+  - staggered link entrance animation
+- Responsive layout (mobile-friendly)
+- Client Component menu (`"use client"`) so React Hooks + GSAP work correctly
 
 ## Getting Started
 
-First, run the development server:
+### 1) Install dependencies
+
+```bash
+npm install
+```
+
+### 2) Run the dev server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 3) Build for production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Project Structure (typical)
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/
+    layout.js          # Root layout (fonts + Menu)
+    page.js            # Example page(s)
+    globals.css        # Global styles
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  about/page.js
+  work/page.js
+  lab/page.js
+  contact/page.js
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  components/
+    menu/
+      Menu.js          # Client component with GSAP animations
+      menu.css         # Menu styling
+```
 
-## Deploy on Vercel
+## How the Animation Works
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The menu is a Client Component and creates a paused GSAP timeline on mount:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Sets initial link positions (down + hidden)
+- Animates the overlay `clip-path` from closed → open
+- Staggers each menu item into place
+- On toggle:
+  - `play()` to open
+  - `reverse()` to close
+
+Key bits:
+
+- `useGSAP(..., { scope: containerRef })` keeps selectors scoped to the component.
+- `pointer-events` is disabled while closed, enabled when open.
+
+## Fonts
+
+The layout loads fonts using `next/font/google`.  
+If you added a condensed/bold look (e.g. **Teko**), it can be exposed as a CSS variable (example: `--font-mw`) and applied to the menu.
+
+## Deploy (Vercel)
+
+1. Push the repo to GitHub
+2. Import it in Vercel
+3. Deploy (defaults work for Next.js)
+
+> If you’re using env vars or private assets, add them in Vercel Project Settings.
+
+## Notes / Troubleshooting
+
+### “React Hook only works in a Client Component”
+
+If you see `useEffect`/hooks errors from `Menu.js`, ensure the file starts with:
+
+```js
+"use client";
+```
+
+## License
+
+Personal / Individual project.

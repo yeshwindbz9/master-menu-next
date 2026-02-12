@@ -1,12 +1,9 @@
-const page = () => {
+import PageIntro from "@/components/page/PageIntro";
+
+export default function Page() {
   return (
-    <>
-      <div className="page-content lab">
-        <h1>
-          Lab<sup>(05)</sup>
-        </h1>
-      </div>
-    </>
+    <div className="page-content lab">
+      <PageIntro title="Lab" tag="(05)" />
+    </div>
   );
-};
-export default page;
+}

@@ -1,13 +1,10 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import PageIntro from "@/components/page/PageIntro";
 
 export default function Home() {
   return (
     <>
       <div className="page-content hero">
-        <h1>
-          Index<sup>(01)</sup>
-        </h1>
+        <PageIntro title="Index" tag="(01)" />
       </div>
     </>
   );

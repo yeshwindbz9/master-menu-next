@@ -1,6 +1,7 @@
 # Master Menu Next (Next.js + GSAP Responsive Navigation)
 
-A lightweight demo project showcasing a **GSAP-driven, responsive full-screen navigation overlay** built with the **Next.js App Router**.  
+A lightweight demo project showcasing a **GSAP-driven, responsive full-screen navigation overlay** built with the **Next.js App Router**.
+
 The menu uses **clip-path** animation for the overlay reveal and staggered link entrance animation via **GSAP timelines**.
 
 ## Tech Stack
